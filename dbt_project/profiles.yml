@@ -1,0 +1,30 @@
+# Local/CI profile. Two targets are defined to reflect how this project is
+# actually run in the two environments it lives in:
+#
+#   dev  (default) - dbt-duckdb, a single embedded file, zero external
+#                    services. This is what CI and `make test` use, so the
+#                    whole pipeline is verifiable completely offline.
+#   prod            - the real target: a managed PostgreSQL cluster. Not
+#                    used in CI/tests (needs real credentials + a running
+#                    cluster) -- see README "Running against real Postgres".
+#
+# The SQL in models/ is written in the ANSI/Postgres-compatible subset that
+# both DuckDB and Postgres support, so the exact same models run on either
+# target unchanged.
+field_ops_cost_audit:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'target/field_ops_cost_audit.duckdb') }}"
+      threads: 4
+
+    prod:
+      type: postgres
+      host: "{{ env_var('PGHOST', 'localhost') }}"
+      port: "{{ env_var('PGPORT', '5432') | as_number }}"
+      user: "{{ env_var('PGUSER', 'field_ops') }}"
+      password: "{{ env_var('PGPASSWORD', '') }}"
+      dbname: "{{ env_var('PGDATABASE', 'field_ops_cost_audit') }}"
+      schema: "{{ env_var('PGSCHEMA', 'public') }}"
+      threads: 4

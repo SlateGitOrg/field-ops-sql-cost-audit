@@ -1,0 +1,67 @@
+name: 'field_ops_cost_audit'
+version: '1.0.0'
+config-version: 2
+
+profile: 'field_ops_cost_audit'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+analysis-paths: ["analyses"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  field_ops_cost_audit:
+    +quote_columns: false
+    # Raw seed columns that can contain blank cells (our modeled "missing
+    # value") are pinned to VARCHAR so DuckDB's CSV type-sniffer doesn't
+    # infer a numeric/timestamp type and choke on the blanks at load time --
+    # staging models own all null-handling and type casting explicitly.
+    technicians:
+      +column_types:
+        hourly_rate: DOUBLE
+        record_updated_at: VARCHAR
+    jobs:
+      +column_types:
+        route_id: VARCHAR
+        technician_id: VARCHAR
+        created_at: VARCHAR
+        completed_at: VARCHAR
+    route_stops:
+      +column_types:
+        job_id: VARCHAR
+        prev_stop_id: VARCHAR
+        arrival_ts: VARCHAR
+        departure_ts: VARCHAR
+        distance_from_prev_km: VARCHAR
+    timesheets:
+      +column_types:
+        job_id: VARCHAR
+        logged_at: VARCHAR
+    parts_billing:
+      +column_types:
+        billed_at: VARCHAR
+    sla_targets:
+      +column_types:
+        target_resolution_hours: INTEGER
+    sla_hand_verified_sample:
+      +column_types:
+        expected_is_breached: BOOLEAN
+        expected_breach_minutes: INTEGER
+
+models:
+  field_ops_cost_audit:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    marts:
+      +materialized: table
+      +schema: marts

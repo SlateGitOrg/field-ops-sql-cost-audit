@@ -1,0 +1,21 @@
+job_id,priority,expected_is_breached,expected_breach_minutes,verified_by,note
+JOB-000362,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000161,Rush,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000254,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000017,Rush,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000251,Emergency,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000334,Rush,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000372,Emergency,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000287,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000431,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000229,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000116,Standard,True,2261,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000105,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000063,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000025,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000216,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000449,Rush,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000060,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000415,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000524,Standard,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy
+JOB-000490,Emergency,False,0,analyst_manual_review,derived directly from created_at/completed_at + SLA policy

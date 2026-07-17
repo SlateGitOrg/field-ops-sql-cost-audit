@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: dim_technicians
+    description: Technician dimension.
+    columns:
+      - name: technician_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fct_job_cost_to_serve
+    description: >
+      One row per completed job with a resolvable technician: full
+      cost-to-serve (labor + net parts + travel overhead). Live-connected
+      Tableau source for the Cost-to-Serve Overview dashboard.
+    columns:
+      - name: job_id
+        data_tests:
+          - unique
+          - not_null
+      - name: technician_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_technicians')
+              field: technician_id
+      - name: total_cost_to_serve
+        data_tests:
+          - not_null
+
+  - name: fct_technician_utilization
+    description: >
+      One row per technician per week: billable hours, utilization rate,
+      trailing 4-week rolling average. Tableau source for Technician
+      Utilization dashboard.
+    columns:
+      - name: technician_id
+        data_tests:
+          - not_null
+      - name: utilization_rate
+        data_tests:
+          - not_null
+
+  - name: fct_job_sla_breach
+    description: Job-grain SLA breach outcome.
+    columns:
+      - name: job_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fct_sla_breach_summary
+    description: >
+      Region/priority/month rollup of SLA breach rate. Tableau source for
+      the SLA Breach Hotspots dashboard.
+    columns:
+      - name: breach_rate
+        data_tests:
+          - not_null
+
+  - name: rpt_data_quality_exceptions
+    description: Jobs excluded from cost-to-serve due to an unresolvable technician_id.

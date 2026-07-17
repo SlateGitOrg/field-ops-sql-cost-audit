@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate synthetic dataset
+        run: python data_generation/generate_data.py
+
+      - name: dbt build (seed + run + test, DuckDB target -- no external DB)
+        working-directory: dbt_project
+        env:
+          DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_project
+        run: dbt build --target dev
+
+      - name: Run pytest suite
+        env:
+          DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_project
+        run: python -m pytest tests/ -v
+
+      - name: Upload dbt artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-logs
+          path: |
+            dbt_project/logs/
+            dbt_project/target/

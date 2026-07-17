@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: int_route_sequence
+    description: >
+      Recursive walk of the route_stops linked list producing per-stop
+      sequence number, leg travel time, and cumulative distance/time.
+    columns:
+      - name: stop_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: int_job_technician_link
+    description: Job -> technician resolution, flags unresolvable technician_ids.
+    columns:
+      - name: job_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: int_job_travel_minutes
+    description: Travel time attributable to each job (route leg or ad-hoc estimate).
+
+  - name: int_job_labor_cost
+    description: Labor cost per job from billable timesheet hours * technician rate.
+
+  - name: int_job_parts_cost
+    description: Net billing amount per job (parts + surcharges, netted against credit_return lines).
+
+  - name: int_job_cost_to_serve
+    description: Full landed cost-to-serve per completed job (labor + net parts + travel overhead).
+    columns:
+      - name: job_id
+        data_tests:
+          - unique
+          - not_null
+      - name: total_cost_to_serve
+        data_tests:
+          - not_null
+
+  - name: int_technician_utilization
+    description: Weekly technician utilization with a trailing 4-week rolling average.
+
+  - name: int_sla_breach
+    description: Per-job SLA breach outcome, independent of technician resolution.
+    columns:
+      - name: job_id
+        data_tests:
+          - unique
+          - not_null

@@ -1,0 +1,24 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# dbt
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+dbt_project/.user.yml
+
+# DuckDB artifacts
+*.duckdb
+*.duckdb.wal
+
+# OS
+.DS_Store
+
+# Tableau
+*.twbx
+*.hyper
+tableau/*.tds.bak
