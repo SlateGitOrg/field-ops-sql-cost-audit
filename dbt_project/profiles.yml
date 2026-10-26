@@ -2,11 +2,11 @@
 # actually run in the two environments it lives in:
 #
 #   dev  (default) - dbt-duckdb, a single embedded file, zero external
-#                    services. This is what CI and `make test` use, so the
+#                    services. This is what CI uses (dbt build / pytest), so the
 #                    whole pipeline is verifiable completely offline.
 #   prod            - the real target: a managed PostgreSQL cluster. Not
 #                    used in CI/tests (needs real credentials + a running
-#                    cluster) -- see README "Running against real Postgres".
+#                    cluster) -- see README "Running against PostgreSQL".
 #
 # The SQL in models/ is written in the ANSI/Postgres-compatible subset that
 # both DuckDB and Postgres support, so the exact same models run on either

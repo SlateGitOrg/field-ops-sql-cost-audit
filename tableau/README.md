@@ -43,10 +43,10 @@ dashboard filter action.
 | Breach rate over time | Area chart | `month`, `breach_rate`, split by `region` |
 | Breach detail (drill-through) | Table | `job_id`, `breach_minutes`, filtered by the heatmap selection |
 
-This is the dashboard that surfaces the project's headline operational
-insight: **East and South carry a materially higher Standard-priority SLA
-breach rate than the other three regions** -- see the root-cause note in
-the SLA breach table in the top-level README.
+This dashboard is designed to surface regional SLA-breach patterns. In the
+bundled synthetic data, East and South are modelled as understaffed, so they
+show a higher Standard-priority breach rate than the other three regions; see
+the "Example" section of the top-level README.
 
 ## Connecting live
 
