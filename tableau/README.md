@@ -6,8 +6,6 @@ database dbt is building `marts` into, no intermediate export step.
 
 ## 1. Cost-to-Serve Overview
 **Source**: `main_marts.fct_job_cost_to_serve`
-**Workbook**: `cost_to_serve_overview.twb` (connection + starter worksheet
-included in this repo -- see note below)
 
 | Sheet | Chart | Fields |
 |---|---|---|
@@ -48,26 +46,16 @@ dashboard filter action.
 This is the dashboard that surfaces the project's headline operational
 insight: **East and South carry a materially higher Standard-priority SLA
 breach rate than the other three regions** -- see the root-cause note in
-the top-level README's "Operational insight" section.
+the SLA breach table in the top-level README.
 
 ## Connecting live
 
 1. Point a new Tableau data source at the Postgres database the `prod`
-   dbt target writes to (see the top-level README's "Running against real
-   Postgres" section) -- host/db/schema from your own `PGHOST` / `PGDATABASE`.
+   dbt target writes to (see "Running against PostgreSQL" in the top-level README) -- host/db/schema from your own `PGHOST` / `PGDATABASE`.
 2. Select **Live** (not Extract) so the dashboards always reflect the
    latest `dbt build`.
 3. Build from the three `main_marts` / prod-schema views listed above --
    they're already the exact grain and column set each dashboard needs; no
    further joins are required inside Tableau.
 
-## Note on the included `.twb`
-
-`cost_to_serve_overview.twb` is a hand-authored Tableau workbook XML file
-containing a real live-Postgres `<connection>` block and one worksheet
-definition (the cost-composition stacked bar), meant as a working starting
-point/template you open directly in Tableau Desktop and build out from --
-it isn't a full packaged `.twbx` with cached extracts or every worksheet
-above, since those require actually running Tableau against a live
-database. The other sheets/dashboards described here follow the same
-pattern against the same connection.
+No workbook file is included; these are build specifications for the dashboards.
